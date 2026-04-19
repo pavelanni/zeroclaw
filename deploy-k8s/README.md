@@ -74,6 +74,16 @@ oc apply -f deploy-k8s/configmap.yaml
 oc -n zeroclaw rollout restart deployment zeroclaw
 ```
 
+## Notes
+
+- **State is ephemeral.** Both `state` and `workspace` volumes use
+  `emptyDir` — agent memory and session history do not persist across
+  pod restarts. For production, replace these with
+  PersistentVolumeClaims.
+- **Vanilla Kubernetes.** The `Route` object is OpenShift-specific. On
+  vanilla Kubernetes, replace `route-sample.yaml` with a Kubernetes
+  Ingress targeting port 42617.
+
 ## Cleanup
 
 ```bash
